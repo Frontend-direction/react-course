@@ -1,0 +1,24 @@
+
+.result__table {
+  font-size: 1rem;
+}
+
+.item-name {
+  font-size: 1.3em;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: underline;
+}
+.item-value {
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+.restart {
+  font-size: 3em;
+  width: 1em;
+  height: 0.9em;
+  cursor: pointer;
+  margin: 0 auto;
+  overflow: hidden;
+}

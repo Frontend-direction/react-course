@@ -1,8 +1,11 @@
-import TickTickToe from './pages/TickTickToe';
+import TickTickToePage from './pages/TickTickToePage';
+import './App.css';
 
 function App() {
   return (
-   <TickTickToe />
+    <div className="wrapper">
+      <TickTickToePage />
+    </div>
   );
 }
 
