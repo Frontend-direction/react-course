@@ -1,7 +1,26 @@
 import './GameResults.css';
 
-function GameResults() {
-  
+function GameResults({ score }) {
+  const renderHeaders = () => {
+    const headers = Object.keys(score);
+
+    return (
+      headers.map((header,i) => {
+        return <th key={i} className="item-name">{header}</th>
+      })
+    )
+  }
+
+  const renderRows = () => {
+    const rows = Object.values(score);
+
+    return (
+      rows.map((row, i) => {
+        return  <td key={i} className="item-value">{row}</td>
+      })
+    )
+  }
+
   return (
     <>
       <div className='restart' title="Start new game">
@@ -10,14 +29,10 @@ function GameResults() {
       <table className='result__table'>
         <thead>
           <tr>
-            <th className="item-name">Computer</th>
-            <th className="item-name" style={{ paddingRight: '10px', paddingleft: '10px' }}>Draws</th>
-            <th className="item-name">Player</th>
+           {renderHeaders()}
           </tr>
           <tr>
-            <td className="item-value">0</td>
-            <td className="item-value" style={{ paddingRight: '10px', paddingleft: '10px' }}>0</td>
-            <td className="item-value" id="player_score">0</td>
+            {renderRows()}
           </tr>
         </thead>
       </table>

@@ -1,13 +1,7 @@
-export const createTwoDemensionlArr = (size) => {
-  let arr = [];
+export const createTwoDemensionlArr = (oneDimensionalArr, size) => {
+  const copy = [...oneDimensionalArr];
+  const newArr = [];
+  while(copy.length) newArr.push(copy.splice(0,size));
 
-  for (let i = 0; i < size; i++) {
-  	arr.push([]);
-    
-    for (let j = 0; j < size; j++) {
-      arr[i].push(i * size + j)
-    }
-  }
-
-  return arr;
+  return newArr;
 }
