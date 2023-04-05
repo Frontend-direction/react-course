@@ -7,10 +7,12 @@ import TickTickToe from '../game/TickTickToe';
 function TickTickToePage() {
   const[game, setGame] = useState(new TickTickToe());
   const [board, setBoard] = useState([]);
+  const [showModal, setShowModal]  = useState(false);
 
   useEffect(() => {
-    game.start();
-    setBoard(game.gameBoard);
+    setShowModal(true);
+    // game.start();
+    // setBoard(game.gameBoard);
   }, [game]);
 
   const handleMove = (cell) => {
@@ -28,7 +30,7 @@ function TickTickToePage() {
       <h1>Tick-Tick-Toe</h1>
       <Board handleClick={handleMove} board={board} />
       <GameResults score={game.score}/>
-      <GameSetupDialog />
+      <GameSetupDialog onClose={() => setShowModal(false)}/>
     </div>
   )
 }
