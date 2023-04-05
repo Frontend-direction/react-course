@@ -1,9 +1,6 @@
-class HumanPlayer {
-  constructor(name, sign) {
-    this.name = name;
-    this.sign = sign;
-  }
+import { Player } from "./Player";
 
+class HumanPlayer extends Player {
   getMoveIndex(board, index) {
     return index;
   }

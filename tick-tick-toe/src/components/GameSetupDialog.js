@@ -1,8 +1,11 @@
 import ReactDOM from "react-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import './GameSetupDialog.css';
 
-function GameSetupDialog({ onClose }) {
+function GameSetupDialog({ onClose, onSubmit }) {
+  const[mode, setMode] = useState('easy');
+  const[playerSign, setPlayerSign] = useState('X');
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -10,19 +13,73 @@ function GameSetupDialog({ onClose }) {
     };
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    onSubmit(mode, playerSign);
+  }
+
+  const handleModeChange = (e) => {
+    setMode(e.target.value);
+  }
+
+  const handlePlayerSignChange = (e) => {
+    setPlayerSign(e.target.value);
+  }
+
   return ReactDOM.createPortal(
-    <div>
-      <div id="optionsDlg" className="modal">
-        <div className="modal-content">
-            <h2>How would you like to play?</h2>
-            <h3>Difficulty:</h3>
-            {/* <label><input type="radio" name="difficulty" id="r0" value="0" />easy&nbsp;</label>
-            <label><input type="radio" name="difficulty" id="r1" value="1" checked />hard</label><br/> */}
-            <h3>Play as:</h3>
-            {/* <label><input type="radio" name="player" id="rx" value="x" checked />X (go first)&nbsp;</label>
-            <label><input type="radio" name="player" id="ro" value="o" />O<br/></label> */}
-            <p><button id="okBtn">Play</button></p>
-        </div>
+    <div className="modal">
+      <div className="modal-content">
+          <h2>How would you like to play?</h2>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <h3>Difficulty:</h3>
+              <label>
+                <input 
+                  type="radio" 
+                  value="easy" 
+                  checked={mode==='easy'} 
+                  name="mode" 
+                  onChange={handleModeChange}
+                />
+                  Easy
+              </label>
+              <label>
+                <input 
+                  type="radio" 
+                  value="hard" 
+                  checked={mode==='hard'}  
+                  name="mode" 
+                  onChange={handleModeChange}
+                /> 
+                  Hard
+              </label>
+            </div>
+            <div>
+              <h3>Play as:</h3>
+              <label>
+                <input 
+                  type="radio" 
+                  value="X" 
+                  checked={playerSign==='X'} 
+                  name="player" 
+                  onChange={handlePlayerSignChange}
+                /> 
+                  X (go first)
+              </label>
+              <label>
+                <input 
+                  type="radio" 
+                  value="O" 
+                  checked={playerSign==='O'} 
+                  name="player" 
+                  onChange={handlePlayerSignChange}
+                />
+                  O
+              </label>
+            </div>
+            <button type="submit" className="modal-close" onClick={handleSubmit}>Play</button>
+          </form>
       </div>
     </div>,
     document.getElementById('modal-container')

@@ -27,6 +27,7 @@ class TickTickToe {
   get gameBoard() {
     return createTwoDemensionlArr(this._board, this.boardSize);
   }
+
   start() {
     this.checkNextMove();
   }

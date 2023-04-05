@@ -1,6 +1,9 @@
 import './GameResults.css';
+import useGameContext from '../hooks/use-game-context';
 
-function GameResults({ score }) {
+function GameResults() {
+  const { score } = useGameContext();
+  
   const renderHeaders = () => {
     const headers = Object.keys(score);
 

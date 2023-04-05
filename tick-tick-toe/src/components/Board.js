@@ -1,7 +1,10 @@
 import './Board.css';
+import useGameContext from '../hooks/use-game-context';
 
-function Board({ board, handleClick }) {
-  const renderGrid = () => {
+function Board() {
+  const { board, paleyerMove } = useGameContext();
+
+  const renderGrid = (gameBoard) => {
     let cellIndex = 0;
 
     const renderCell = (sign) => {
@@ -13,7 +16,7 @@ function Board({ board, handleClick }) {
     }
     
     return (
-      board.map((row,i) => {
+      gameBoard.map((row,i) => {
         return (
           <tr key={i}>
             {row.map((el) => renderCell(el))}
@@ -24,14 +27,14 @@ function Board({ board, handleClick }) {
   }
 
   const handleCellClick = (e) => {
-    handleClick(e.target.dataset.key);
+    paleyerMove(e.target.dataset.key);
   }
 
   return ( 
     <>
       <table className="board" onClick={handleCellClick}>
         <thead>
-          {renderGrid()}
+          {renderGrid(board)}
         </thead>
       </table>
     </>

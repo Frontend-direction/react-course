@@ -1,6 +1,4 @@
-* modal background */
 .modal {
-    display: none;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -23,7 +21,7 @@
     padding: 20px;
     border: 2px solid black;
     border-radius: 10px;
-    width: 380px;
+    width: 550px;
     max-width: 80%;
 }
 .modal-content p {

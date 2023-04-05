@@ -1,9 +1,6 @@
-class ComputerPlayer {
-  constructor(name, sign) {
-    this.name = name;
-    this.sign = sign;
-  }
+import { Player } from "./Player";
 
+class ComputerPlayer extends Player {
   getMoveIndex(board, index) {
     let randomIndex = Math.floor(Math.random() * board.length);
 
