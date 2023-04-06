@@ -1,15 +1,20 @@
 import { Player } from "./Player";
+import { RandomStrategy } from "./RandomStrategy";
+import { MinMaxStrategy } from "./MinMaxStrategy";
 
 class ComputerPlayer extends Player {
-  // @TODO: Implement strategies depends on game mode (easy, difficult)
-  getMoveIndex(board, index) {
-    let randomIndex = Math.floor(Math.random() * board.length);
-
-    while(board[randomIndex] !== '') {
-      randomIndex = Math.floor(Math.random() * board.length);
+  constructor(name, sign) {
+    super(name, sign);
+    this.strategies = {
+      'easy': new RandomStrategy(),
+      'hard': new MinMaxStrategy(),
     }
+  }
+  
+  getMoveIndex(board, index, mode) {
+    const strategy = this.strategies[mode] || this.strategies['easy'];
 
-    return randomIndex;
+    return strategy.generateBestSpot(board);
   }
 }
 
