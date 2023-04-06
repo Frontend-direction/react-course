@@ -26,6 +26,7 @@ const GameProvider = ({ children }) => {
     board,
     score: game.score,
     winningCombination: game.winningCombination,
+    isGameOver: game.isGameOver,
     startGame,
     restartGame,
     paleyerMove,

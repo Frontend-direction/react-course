@@ -28,3 +28,19 @@ table {
 .highlight {
   background-color: blueviolet;
 }
+
+.X {
+  color: darksalmon;
+  position: relative;
+  top: -8px;
+  font-size: 1.2em;
+  cursor: default;
+}
+
+.O {
+  color: aquamarine;
+  position: relative;
+  top: -7px;
+  font-size: 1.0em;
+  cursor: default;
+}

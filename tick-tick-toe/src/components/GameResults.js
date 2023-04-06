@@ -9,7 +9,7 @@ function GameResults() {
 
     return (
       headers.map((header,i) => {
-        return <th key={i} className="item-name">{header}</th>
+        return <th key={i} className="item-name">{header.toLocaleUpperCase()}</th>
       })
     )
   }

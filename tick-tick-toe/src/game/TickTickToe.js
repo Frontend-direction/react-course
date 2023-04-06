@@ -3,7 +3,7 @@ import HumanPlayer from "./HumanPlayer";
 import { createTwoDemensionlArr } from "../utils/create-two-dimensional-arr";
 
 class TickTickToe {
-  _winningCombinations;
+  _winningCombination;
   _board;
   _boardSize;
   _playerOne;
@@ -24,6 +24,10 @@ class TickTickToe {
     return this._winningCombinations?.find(combination => {
       return combination.every(index => this._board[index] === this._currentPlayer.sign);
     });
+  }
+
+  get isGameOver() {
+    return this._gameOver;
   }
 
   start(mode, playerOne) {
@@ -61,7 +65,7 @@ class TickTickToe {
       this._playerOne = new HumanPlayer('Human','X');
       this._playerTwo = new ComputerPlayer('AI', 'O', mode);
     } else {
-      this._playerOne = new ComputerPlayer('AI','X', mode);
+      this._playerOne = new ComputerPlayer('Computer','X', mode);
       this._playerTwo = new HumanPlayer('Human','O');
     }
 
@@ -78,8 +82,8 @@ class TickTickToe {
     this._gameOver = false;
     this._results = {
       [this._playerOne.name]: 0,
-      [this._playerTwo.name]: 0,
       ties: 0,
+      [this._playerTwo.name]: 0,
     }
   }
 

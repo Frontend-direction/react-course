@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import  { useEffect, useState } from 'react';
 
 import useGameContext from "../hooks/use-game-context";
 
@@ -6,15 +6,25 @@ import Board from "../components/Board";
 import GameSetupDialog from "../components/GameSetupDialog";
 import GameResults from "../components/GameResults";
 import RestartButton from "../components/RestartButton";
+import ResultDialog from '../components/ResultDialog';
 
 function TickTickToePage() {
-  const { startGame, restartGame } = useGameContext();
-  const [showModal, setShowModal] = useState(true);
+  const { startGame, restartGame, isGameOver, winningCombination } = useGameContext();
+  const [showSetupModel, setshowSetupModel] = useState(true);
+  const [showResultDialog, setShowResultDialog] = useState(false);
 
   const start = (gameMode, firstPlayer) => {
     startGame(gameMode, firstPlayer);
-    setShowModal(false);
+    setshowSetupModel(false);
   }
+
+  useEffect(() => {
+    if(isGameOver) {
+      setShowResultDialog(true);
+    } else {
+      setShowResultDialog(false);
+    }
+  }, [isGameOver]);
 
   return (
     <div>
@@ -22,7 +32,8 @@ function TickTickToePage() {
       <Board />
       <RestartButton restartGame={restartGame} />
       <GameResults />
-      { showModal && <GameSetupDialog onSubmit={start}/> }
+      { showSetupModel && <GameSetupDialog onSubmit={start}/> }
+      { showResultDialog && <ResultDialog result={winningCombination} onClose={restartGame} /> }
     </div>
   )
 }
