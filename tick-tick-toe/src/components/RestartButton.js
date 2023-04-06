@@ -1,6 +1,6 @@
 import { FaRedo } from "react-icons/fa";
 
-function RestartButton() {
+function RestartButton({ restartGame}) {
   const styles ={
     'fontSize': '3em',
     'width': '1em',
@@ -13,8 +13,8 @@ function RestartButton() {
   }
 
   return (
-    <div style={styles} title="Start new game">
-        <FaRedo />
+    <div style={styles} title="Start new game" onClick={restartGame}>
+      <FaRedo />
     </div>
   );
 }

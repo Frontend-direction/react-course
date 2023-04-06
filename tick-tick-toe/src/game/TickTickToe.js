@@ -3,14 +3,14 @@ import HumanPlayer from "./HumanPlayer";
 import { createTwoDemensionlArr } from "../utils/create-two-dimensional-arr";
 
 class TickTickToe {
-  _winingCombination;
+  _winningCombinations;
   _board;
   _boardSize;
   _playerOne;
   _playerTwo;
   _currentPlayer;
+  _results;
   _gameOver = false;
-  _results = {}
 
   get score() {
     return { ...this._results };
@@ -18,6 +18,12 @@ class TickTickToe {
 
   get gameBoard() {
     return createTwoDemensionlArr(this._board, this._boardSize);
+  }
+
+  get winningCombination() {
+    return this._winningCombinations?.find(combination => {
+      return combination.every(index => this._board[index] === this._currentPlayer.sign);
+    });
   }
 
   start(mode, playerOne) {
@@ -63,9 +69,9 @@ class TickTickToe {
   }
 
   _initBoard(boardSize = 3) {
-    this._board = ['','','','','','','','',''];
     this._boardSize = boardSize;
-    this._winingCombination = [[0,1,2], [3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    this._board = ['','','','','','','','',''];
+    this._winningCombinations = [[0,1,2], [3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
   }
 
   _initEmptyResults() {
@@ -92,12 +98,10 @@ class TickTickToe {
     if(this._isDraw()) {
       this._gameOver = true;
       this._results.ties += 1;
-      console.log('it is draw');
       return;
     }
 
     if(this._isWin()) {
-      console.log(`Player ${this._currentPlayer.name} won the game`);
       this._gameOver = true;
       this._results[this._currentPlayer.name] += 1;
       return;
@@ -115,9 +119,7 @@ class TickTickToe {
   }
 
   _isWin() {
-    return !!this._winingCombination.find(combination => {
-      return combination.every(index => this._board[index] === this._currentPlayer.sign);
-    });
+    return !!this.winningCombination
   }
 
   _isValidMove(cell) {

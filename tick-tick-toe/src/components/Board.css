@@ -24,3 +24,7 @@ table {
   overflow: hidden;
   cursor: pointer;
 }
+
+.highlight {
+  background-color: blueviolet;
+}

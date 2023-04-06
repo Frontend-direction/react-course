@@ -8,7 +8,7 @@ import GameResults from "../components/GameResults";
 import RestartButton from "../components/RestartButton";
 
 function TickTickToePage() {
-  const { startGame } = useGameContext();
+  const { startGame, restartGame } = useGameContext();
   const [showModal, setShowModal] = useState(true);
 
   const start = (gameMode, firstPlayer) => {
@@ -20,7 +20,7 @@ function TickTickToePage() {
     <div>
       <h1>Tick-Tick-Toe</h1>
       <Board />
-      <RestartButton />
+      <RestartButton restartGame={restartGame} />
       <GameResults />
       { showModal && <GameSetupDialog onSubmit={start}/> }
     </div>

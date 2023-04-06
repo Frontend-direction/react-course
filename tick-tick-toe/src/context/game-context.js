@@ -7,7 +7,7 @@ const game = new TickTickToe();
 const GameProvider = ({ children }) => {
   const [board, setBoard] = useState([]);
 
-  const move = (cell) => {
+  const paleyerMove = (cell) => {
     game.move(cell);
     setBoard(game.gameBoard);
   }
@@ -17,15 +17,22 @@ const GameProvider = ({ children }) => {
     setBoard(game.gameBoard);
   }
 
-  const share = {
-    startGame,
+  const restartGame = () => {
+    game.restartGame();
+    setBoard(game.gameBoard);
+  }
+
+  const gameState = {
     board,
-    paleyerMove: move,
-    score: game.score
+    score: game.score,
+    winningCombination: game.winningCombination,
+    startGame,
+    restartGame,
+    paleyerMove,
   }
   
   return (
-    <GameContext.Provider value={share}>
+    <GameContext.Provider value={gameState}>
       {children}
     </GameContext.Provider>
   )
