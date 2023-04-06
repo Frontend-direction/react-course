@@ -1,8 +1,8 @@
 import './GameResults.css';
-import useGameContext from '../hooks/use-game-context';
+import useTickTickToeContext from '../hooks/use-tick-tick-toe-context';
 
 function GameResults() {
-  const { score } = useGameContext();
+  const { score } = useTickTickToeContext();
   
   const renderHeaders = () => {
     const headers = Object.keys(score);

@@ -1,13 +1,13 @@
 import TickTickToePage from './pages/TickTickToePage';
 import './App.css';
-import { GameProvider } from './context/game-context';
+import { TickTickToeProvider } from './context/tick-tick-toe-context';
 
 function App() {
   return (
     <div className="wrapper">
-      <GameProvider>
+      <TickTickToeProvider>
         <TickTickToePage />
-      </GameProvider>
+      </TickTickToeProvider>
     </div>
   );
 }

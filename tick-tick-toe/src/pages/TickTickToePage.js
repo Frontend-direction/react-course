@@ -1,6 +1,6 @@
 import  { useEffect, useState } from 'react';
 
-import useGameContext from "../hooks/use-game-context";
+import useTickTickToeContext from "../hooks/use-tick-tick-toe-context";
 
 import Board from "../components/Board";
 import GameSetupDialog from "../components/GameSetupDialog";
@@ -9,7 +9,7 @@ import RestartButton from "../components/RestartButton";
 import ResultDialog from '../components/ResultDialog';
 
 function TickTickToePage() {
-  const { startGame, restartGame, isGameOver, winningCombination } = useGameContext();
+  const { startGame, restartGame, isGameOver, winningCombination } = useTickTickToeContext();
   const [showSetupModel, setshowSetupModel] = useState(true);
   const [showResultDialog, setShowResultDialog] = useState(false);
 

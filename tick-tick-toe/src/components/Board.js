@@ -1,8 +1,8 @@
 import './Board.css';
-import useGameContext from '../hooks/use-game-context';
+import useTickTickToeContext from '../hooks/use-tick-tick-toe-context';
 
 function Board() {
-  const { board, paleyerMove, winningCombination } = useGameContext();
+  const { board, paleyerMove, winningCombination } = useTickTickToeContext();
   const renderGrid = (gameBoard) => {
     let cellIndex = 0;
 
