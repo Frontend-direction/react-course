@@ -26,9 +26,6 @@ function GameResults() {
 
   return (
     <>
-      <div className='restart' title="Start new game">
-        <span style={{ verticalAlign: 'top', position: 'relative', top: '-10px' }}>#</span>
-      </div>
       <table className='result__table'>
         <thead>
           <tr>

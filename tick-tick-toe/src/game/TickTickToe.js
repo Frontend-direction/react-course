@@ -3,96 +3,124 @@ import HumanPlayer from "./HumanPlayer";
 import { createTwoDemensionlArr } from "../utils/create-two-dimensional-arr";
 
 class TickTickToe {
-  winingCombination = [[0,1,2], [3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-  _board = ['','','','','','','','',''];
-  boardSize;
-  playerOne;
-  playerTwo;
-  currentPlayer;
-  gameOver = false;
-  score = {}
+  _winingCombination;
+  _board;
+  _boardSize;
+  _playerOne;
+  _playerTwo;
+  _currentPlayer;
+  _gameOver = false;
+  _results = {}
 
-  constructor() {
-    this.playerOne = new ComputerPlayer('AI','O');
-    this.playerTwo = new HumanPlayer('Vova','X')
-    this.currentPlayer = this.playerOne;
-    this.boardSize = 3;
-    this.score = {
-      [this.playerOne.name]: 0,
-      [this.playerTwo.name]: 0,
+  get score() {
+    return { ...this._results };
+  }
+
+  get gameBoard() {
+    return createTwoDemensionlArr(this._board, this._boardSize);
+  }
+
+  start(mode, playerOne) {
+    this._init(mode, playerOne);
+    this._checkNextMove();
+  }
+
+  restartGame() {
+    this._gameOver = false;
+    this._initBoard(this.boardSize);
+  }
+
+  move(cell) {
+    if(!this._isValidMove(cell) || this._gameOver) return;
+
+    this._updateBoard(cell);
+
+    this._checkResult();
+
+    if(this._gameOver) return;
+
+    this._swapCurrentPlayer();
+    
+    this._checkNextMove();
+  }
+
+  _init(mode, playerOne){
+    this._initPlayers(mode, playerOne);
+    this._initBoard();
+    this._initEmptyResults();
+  }
+
+  _initPlayers(mode, playerOne) {
+    if(playerOne === 'X') {
+      this._playerOne = new HumanPlayer('Human','X');
+      this._playerTwo = new ComputerPlayer('AI', 'O', mode);
+    } else {
+      this._playerOne = new ComputerPlayer('AI','X', mode);
+      this._playerTwo = new HumanPlayer('Human','O');
+    }
+
+    this._currentPlayer = this._playerOne;
+  }
+
+  _initBoard(boardSize = 3) {
+    this._board = ['','','','','','','','',''];
+    this._boardSize = boardSize;
+    this._winingCombination = [[0,1,2], [3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  }
+
+  _initEmptyResults() {
+    this._gameOver = false;
+    this._results = {
+      [this._playerOne.name]: 0,
+      [this._playerTwo.name]: 0,
       ties: 0,
     }
   }
 
-  get gameBoard() {
-    return createTwoDemensionlArr(this._board, this.boardSize);
-  }
-
-  start() {
-    this.checkNextMove();
-  }
-
-  checkNextMove() {
-    if(this.currentPlayer instanceof ComputerPlayer) {
-      const cell = this.currentPlayer.getMoveIndex(this._board);
+  _checkNextMove() {
+    if(this._currentPlayer instanceof ComputerPlayer) {
+      const cell = this._currentPlayer.getMoveIndex(this._board);
       this.move(cell);
     }
   }
-  
-  move(cell) {
-    if(!this.isValidMove(cell)) return;
 
-    this.updateBoard(cell);
-
-    this.checkResult();
-
-    if(this.gameOver) return;
-
-    this.swapCurrentPlayer();
-    
-    this.checkNextMove();
+  _updateBoard(cell) {
+    this._board[cell] = this._currentPlayer.sign;
   }
 
-  updateBoard(cell) {
-    this._board[cell] = this.currentPlayer.sign;
-  }
-
-  log() {
-    console.log(this._board[0] + '|' + this._board[1] + '|'  +this._board[2] + '\n')
-    console.log(this._board[3] + '|' + this._board[4] + '|'  +this._board[5] + '\n')
-    console.log(this._board[6] + '|' + this._board[7] + '|'  +this._board[8] + '\n')
-    console.log('\n')
-  }
-
-  checkResult() {
-    if(this.isDraw()) {
-      this.gameOver = true;
-      this.score.ties += 1;
+  _checkResult() {
+    if(this._isDraw()) {
+      this._gameOver = true;
+      this._results.ties += 1;
       console.log('it is draw');
       return;
     }
 
-    if(this.isWin()) {
-      console.log(`Player ${this.currentPlayer.name} won the game`);
-      this.gameOver = true;
-      this.score[this.currentPlayer.name] += 1;
+    if(this._isWin()) {
+      console.log(`Player ${this._currentPlayer.name} won the game`);
+      this._gameOver = true;
+      this._results[this._currentPlayer.name] += 1;
       return;
     }
   }
 
-  swapCurrentPlayer() {
-    this.currentPlayer = this.currentPlayer === this.playerOne? this.playerTwo : this.playerOne;
+  _swapCurrentPlayer() {
+    this._currentPlayer = this._currentPlayer === this._playerOne
+      ? this._playerTwo 
+      : this._playerOne;
   }
 
-  isDraw() {
-    return !this.isWin() && this._board.every(cell => cell !== '');
+  _isDraw() {
+    return !this._isWin() && this._board.every(cell => cell !== '');
   }
 
-  isWin() {
-    return !!this.winingCombination.find(combination => combination.every(index => this._board[index] === this.currentPlayer.sign));
+  _isWin() {
+    return !!this._winingCombination.find(combination => {
+      return combination.every(index => this._board[index] === this._currentPlayer.sign);
+    });
   }
 
-  isValidMove(cell) {
+  _isValidMove(cell) {
     return this._board[cell] === '';
   }
 }

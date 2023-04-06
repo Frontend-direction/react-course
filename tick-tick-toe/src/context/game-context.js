@@ -13,7 +13,7 @@ const GameProvider = ({ children }) => {
   }
 
   const startGame = (gameMode, firstPlayer) => {
-    game.start();
+    game.start(gameMode, firstPlayer);
     setBoard(game.gameBoard);
   }
 

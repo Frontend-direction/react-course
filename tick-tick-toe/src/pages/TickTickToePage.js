@@ -5,6 +5,7 @@ import useGameContext from "../hooks/use-game-context";
 import Board from "../components/Board";
 import GameSetupDialog from "../components/GameSetupDialog";
 import GameResults from "../components/GameResults";
+import RestartButton from "../components/RestartButton";
 
 function TickTickToePage() {
   const { startGame } = useGameContext();
@@ -19,6 +20,7 @@ function TickTickToePage() {
     <div>
       <h1>Tick-Tick-Toe</h1>
       <Board />
+      <RestartButton />
       <GameResults />
       { showModal && <GameSetupDialog onSubmit={start}/> }
     </div>
